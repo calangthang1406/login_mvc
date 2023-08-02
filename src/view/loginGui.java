@@ -4,25 +4,17 @@
  */
 package view;
 
-import view.registerGui;
-
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-import java.util.Base64;
 
-import javax.imageio.ImageIO;
-import javax.swing.ImageIcon;
-import javax.swing.JLabel;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
 
 import controller.HashUtils;
-import test.Login;
 
 /**
  *
@@ -345,6 +337,11 @@ public class loginGui extends javax.swing.JFrame {
                                 // Call your authentication logic here
                                 if (verifyLogin(enteredUsername, hashedPassword)) {
                                         JOptionPane.showMessageDialog(loginGui.this, "Login Successful!");
+
+                                        JFrame homeFrame = new homeGui();
+                                        homeFrame.setVisible(true);
+                                        dispose();
+
                                 } else {
                                         JOptionPane.showMessageDialog(loginGui.this,
                                                         "Login Failed. Please check your credentials.");
@@ -372,7 +369,7 @@ public class loginGui extends javax.swing.JFrame {
                         String line;
                         while ((line = reader.readLine()) != null) {
                                 String[] parts = line.split(":");
-                                if (parts.length == 2 && parts[0].equals(username) && parts[1].equals(hashedPassword)) {
+                                if (parts.length == 4 && parts[1].equals(username) && parts[2].equals(hashedPassword)) {
                                         return true;
                                 }
                         }

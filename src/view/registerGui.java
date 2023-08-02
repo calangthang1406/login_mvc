@@ -15,6 +15,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
 
 import controller.HashUtils;
+import java.util.Random;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -412,9 +413,21 @@ public class registerGui extends javax.swing.JFrame {
         // ------------------------------------------------------------------------------------------------------------------
 
         private boolean registerUser(String enteredUsername, String handlePassword, String handleRePassword) {
+
+                Random random = new Random();
+
+                int lowerBound = 123456;
+                int upperBound = 999999;
+                int randomNumber = random.nextInt(upperBound - lowerBound + 1) + lowerBound;
+
+                String[] options = { "yes", "no" };
+                int randomIndex = random.nextInt(options.length);
+                String randomChoice = options[randomIndex];
+
                 if (!enteredUsername.equals("") && !handlePassword.equals("") && !handleRePassword.equals("")) {
                         try (BufferedWriter writer = new BufferedWriter(new FileWriter("users.txt", true))) {
-                                writer.write(enteredUsername + ":" + handlePassword);
+                                writer.write(randomNumber + ":" + enteredUsername + ":" + handlePassword + ":"
+                                                + randomChoice);
                                 writer.newLine();
                                 return true;
                         } catch (IOException e) {
